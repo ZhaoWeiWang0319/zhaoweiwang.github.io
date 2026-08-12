@@ -7,7 +7,187 @@
   <meta name="theme-color" content="#ffffff" />
   <title>Zhao-Wei Wang</title>
   <link rel="stylesheet" href="assets/style.css" />
+
+  <style>
+    /* Profile contact icon bar */
+    .profile-card {
+      overflow: visible;
+    }
+
+    .profile-contact-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 30px);
+      column-gap: 34px;
+
+      width: max-content;
+
+      margin-top: 22px;
+      margin-bottom: 8px;
+      margin-left: auto;
+      margin-right: auto;
+
+      padding: 0;
+
+      position: relative;
+      z-index: 20;
+      transform: translateX(-25px);
+    }
+
+    .contact-action {
+      position: relative;
+
+      width: 30px;
+      height: 30px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contact-icon {
+      width: 30px;
+      height: 30px;
+      padding: 3px;
+      border: 0;
+      background: transparent;
+      color: #7f8ca3;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      text-decoration: none;
+      border-radius: 7px;
+      transition: color .18s ease, transform .18s ease, background .18s ease;
+    }
+
+    .contact-icon:hover,
+    .contact-icon:focus-visible,
+    .contact-action.is-open .contact-icon {
+      color: #e9b85d;
+      background: rgba(233, 184, 93, .08);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .contact-icon svg {
+      width: 20px;
+      height: 20px;
+      display: block;
+      stroke: currentColor;
+    }
+
+    .contact-popover {
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 12px);
+      transform: translate(-50%, 8px);
+      width: min(250px, calc(100vw - 32px));
+      padding: 14px 16px 13px;
+      border-radius: 9px;
+      background: #1d2a3d;
+      color: #f4f7fb;
+      box-shadow: 0 12px 34px rgba(0,0,0,.24);
+      text-align: center;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity .16s ease, transform .16s ease, visibility .16s ease;
+      z-index: 100;
+    }
+
+    .contact-popover::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -7px;
+      border: 7px solid transparent;
+      border-top-color: #1d2a3d;
+    }
+
+    .contact-action.is-open .contact-popover {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translate(-50%, 0);
+    }
+
+    .contact-popover h3 {
+      margin: 0 0 8px;
+      color: #fff;
+      font-size: 14px;
+      line-height: 1.2;
+    }
+
+    .contact-popover .click-hint {
+      margin-left: 4px;
+      color: #7e8ba0;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .contact-popover p {
+      margin: 5px 0;
+      color: #fff;
+      font-size: 13px;
+      line-height: 1.45;
+      font-weight: 600;
+      overflow-wrap: anywhere;
+    }
+
+    .contact-popover .contact-subtle {
+      color: #c8d0dc;
+      font-weight: 500;
+    }
+
+    .contact-popover hr {
+      margin: 11px 0;
+      border: 0;
+      border-top: 1px solid rgba(255,255,255,.72);
+    }
+
+    .contact-popover .contact-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      margin-top: 5px;
+      padding: 7px 12px;
+      border-radius: 7px;
+      background: #efbd67;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: none;
+    }
+
+    .contact-popover .contact-cta:hover,
+    .contact-popover .contact-cta:focus-visible {
+      background: #f3c778;
+      color: #fff;
+      outline: none;
+    }
+
+    .contact-cta svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      fill: none;
+    }
+
+    @media (max-width: 520px) {
+      .profile-contact-bar {
+        gap: 22px;
+      }
+
+      .contact-popover {
+        width: min(238px, calc(100vw - 26px));
+      }
+    }
+  </style>
 </head>
+
 <body>
   <header class="topbar">
     <div class="topbar-inner">
@@ -26,16 +206,112 @@
       <div class="avatar">
         <img src="assets/profile.jpg" alt="Zhao-Wei Wang">
       </div>
+
       <h1>Zhao-Wei Wang</h1>
       <p class="role">PhD Student</p>
-      <p class="affiliation">Academy of Mathematics and Systems Science (AMSS)<br>Chinese Academy of Sciences (CAS)</p>
-      <div class="profile-links">
-        <a href="mailto:wangzhaowei@lsec.cc.ac.cn">Email</a>
-        <a href="https://github.com/ZhaoWeiWang0319" target="_blank" rel="noopener">GitHub</a>
+
+      <p class="affiliation">
+        Academy of Mathematics and Systems Science (AMSS)<br>
+        Chinese Academy of Sciences (CAS)
+      </p>
+
+      <div class="profile-contact-bar" aria-label="Contact and profile links">
+
+        <!-- Email -->
+        <div class="contact-action">
+          <button class="contact-icon contact-toggle" type="button" aria-label="Email" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+              <path d="m3 7 9 6 9-6"></path>
+            </svg>
+          </button>
+
+          <div class="contact-popover" role="dialog" aria-label="Email information">
+            <h3>Email <span class="click-hint">↗ Click</span></h3>
+
+            <p>
+              <a href="mailto:wangzhaowei@lsec.cc.ac.cn">wangzhaowei@lsec.cc.ac.cn</a>
+            </p>
+
+            <a class="contact-cta" href="mailto:wangzhaowei@lsec.cc.ac.cn">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                <path d="m3 7 9 6 9-6"></path>
+              </svg>
+              Send Email
+            </a>
+          </div>
+        </div>
+
+
+        <!-- Work place -->
+        <div class="contact-action">
+          <button class="contact-icon contact-toggle" type="button" aria-label="Work place" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"></path>
+              <circle cx="12" cy="10" r="2.6"></circle>
+            </svg>
+          </button>
+
+          <div class="contact-popover" role="dialog" aria-label="Work place information">
+            <h3>Work Place <span class="click-hint">↗ Click</span></h3>
+
+            <p>
+              No. 55 Zhongguancun East Road<br>
+              Haidian District, Beijing 100190
+            </p>
+
+            <p class="contact-subtle">
+              Academy of Mathematics and Systems Science, CAS
+            </p>
+
+            <a
+              class="contact-cta"
+              href="https://www.google.com/maps/search/?api=1&amp;query=No.+55+Zhongguancun+East+Road,+Haidian+District,+Beijing+100190"
+              target="_blank"
+              rel="noopener"
+            >
+              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"></path>
+                <circle cx="12" cy="10" r="2.6"></circle>
+              </svg>
+
+              Google Map
+            </a>
+          </div>
+        </div>
+
+
+        <!-- GitHub -->
+        <div class="contact-action">
+          <button class="contact-icon contact-toggle" type="button" aria-label="GitHub" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3.3-.4 6.8-1.6 6.8-7.3A5.7 5.7 0 0 0 19.3 3 5.3 5.3 0 0 0 19.1 0S17.9-.4 15 1.5a13.4 13.4 0 0 0-7 0C5.1-.4 3.9 0 3.9 0a5.3 5.3 0 0 0-.2 3A5.7 5.7 0 0 0 2.2 7.2c0 5.7 3.5 6.9 6.8 7.3A4.8 4.8 0 0 0 8 18v4"></path>
+              <path d="M8 19c-3 .9-3-1.5-4.2-2"></path>
+            </svg>
+          </button>
+
+          <div class="contact-popover" role="dialog" aria-label="GitHub information">
+            <h3>GitHub <span class="click-hint">↗ Click</span></h3>
+
+            <p>github/ZhaoWeiWang0319</p>
+
+            <a
+              class="contact-cta"
+              href="https://github.com/ZhaoWeiWang0319"
+              target="_blank"
+              rel="noopener"
+            >
+              Open GitHub
+            </a>
+          </div>
+        </div>
+
       </div>
 
       <div class="profile-block">
         <h2>Research Interests</h2>
+
         <div class="tags">
           <span>Mixed Integer Programming</span>
           <span>Presolve</span>
@@ -45,9 +321,12 @@
       </div>
     </aside>
 
+
     <div class="content">
+
       <section class="section bio-section">
         <h2>Short Bio</h2>
+
         <p>
           Zhao-Wei Wang is a PhD student at the Academy of Mathematics and Systems Science,
           Chinese Academy of Sciences, advised by <strong>Prof. Yu-Hong Dai</strong>. Before this, he received the Bachelor degree (2023) in mathematics at School of Xuteli, Beijing Institute of Technology.
@@ -55,37 +334,85 @@
         </p>
       </section>
 
+
       <section class="section" aria-labelledby="news-title">
         <div class="section-heading">
           <h2 id="news-title">News</h2>
         </div>
+
         <div class="news-list">
+
           <article class="news-item">
             <div class="year">2026-07</div>
-            <div><strong>Paper accepted</strong> by <em>Mathematical Programming Computation</em> — “Enhancing Presolve in Mixed Integer Programming by Combining Probing and Dual Fixing”.</div>
+            <div>
+              <strong>Paper accepted by <em>Mathematical Programming Computation</em></strong>
+              —
+              <a href="https://doi.org/10.1007/s12532-026-00336-z" target="_blank" rel="noopener">
+                “Enhancing Presolve in Mixed Integer Programming by Combining Probing and Dual Fixing”
+              </a>.
+            </div>
           </article>
+
           <article class="news-item">
             <div class="year">2026-07</div>
-            <div><strong>New preprint</strong> — “Exploiting Variable Implications in Presolve for Mixed Integer Programming”.</div>
+            <div>
+              <strong>New preprint</strong>
+              —
+              <a href="https://arxiv.org/abs/2607.04313" target="_blank" rel="noopener">
+                “Exploiting Variable Implications in Presolve for Mixed Integer Programming”
+              </a>.
+            </div>
           </article>
+
           <article class="news-item">
             <div class="year">2026-04</div>
-            <div><strong>Talk at The 3rd ORSC Conference on Algorithms, Software and Applications (ASA2026, Fuzhou)</strong> — “Enhancing Presolve in Mixed Integer Programming by Combining Probing and Dual Fixing”.</div>
+            <div>
+              <strong>Talk</strong>
+              at The 3rd ORSC Conference on Algorithms, Software and Applications (ASA2026, Fuzhou)
+              —
+              <a href="files/ASA2026_slides.pdf" target="_blank">
+                “Enhancing Presolve in Mixed Integer Programming by Combining Probing and Dual Fixing”
+              </a>.
+            </div>
           </article>
+
           <article class="news-item">
             <div class="year">2025-05</div>
-            <div><strong>Poster at The 15th National Academic Conference on Mathematical Optimization of the Mathematical Programming Branch of the Operations Research Society of China (MOS 2025, Shanghai)</strong> — “Enhancing Linear Constraint Base Presolve by Exploiting Clique Structures”.</div>
+            <div>
+              <strong>Poster</strong>
+              at The 15th National Academic Conference on Mathematical Optimization of the Mathematical Programming Branch of the Operations Research Society of China (MOS 2025, Shanghai)
+              —
+              <a href="files/MOS2025_poster.pdf" target="_blank">
+                “Enhancing Linear Constraint Based Presolve by Exploiting Clique Structures”
+              </a>.
+            </div>
           </article>
+
           <article class="news-item">
             <div class="year">2025-02</div>
-            <div><strong>Paper published</strong> in <em>Journal of Optimization Theory and Applications</em> — “A Euclidean Distance Matrix Model for Convex Clustering”.</div>
+            <div>
+              <strong>Paper published in <em>Journal of Optimization Theory and Applications</em></strong>
+              —
+              <a href="https://doi.org/10.1007/s10957-025-02616-5" target="_blank" rel="noopener">
+                “A Euclidean Distance Matrix Model for Convex Clustering”
+              </a>.
+            </div>
           </article>
+
           <article class="news-item">
             <div class="year">2024-05</div>
-            <div><strong>Paper published</strong> in <em>Journal of the Operations Research Society of China</em> — “IPRSOCP: A Primal-Dual Interior-Point Relaxation Algorithm for Second-Order Cone Programming”.</div>
+            <div>
+              <strong>Paper published in <em>Journal of the Operations Research Society of China</em></strong>
+              —
+              <a href="https://doi.org/10.1007/s40305-024-00538-z" target="_blank" rel="noopener">
+                “IPRSOCP: A Primal-Dual Interior-Point Relaxation Algorithm for Second-Order Cone Programming”
+              </a>.
+            </div>
           </article>
+
         </div>
       </section>
+
 
       <section id="publications" class="section" aria-labelledby="publications-title">
         <div class="section-heading">
@@ -94,47 +421,121 @@
 
         <article class="publication">
           <h3>Enhancing Presolve in Mixed Integer Programming by Combining Probing and Dual Fixing</h3>
-          <p class="authors"><strong>Zhao-Wei Wang</strong>, Wei-Kun Chen, Yu-Hong Dai</p>
-          <p class="venue"><em>Mathematical Programming Computation</em>, accepted, 2026</p>
+
+          <p class="authors">
+            <strong>Zhao-Wei Wang</strong>, Wei-Kun Chen, Yu-Hong Dai
+          </p>
+
+          <p class="venue">
+            <em>Mathematical Programming Computation</em>, accepted, 2026
+          </p>
+
           <div class="links">
-            <a href="https://doi.org/10.1007/s12532-026-00336-z" target="_blank" rel="noopener">DOI</a>
-            <button class="bibtex-button" type="button" data-bibtex="@article{Wang2026ProbingDualFixing,&#10;  title={Enhancing Presolve in Mixed Integer Programming by Combining Probing and Dual Fixing},&#10;  author={Wang, Zhao-Wei and Chen, Wei-Kun and Dai, Yu-Hong},&#10;  journal={Mathematical Programming Computation},&#10;  year={2026},&#10;  doi={10.1007/s12532-026-00336-z}&#10;}">BibTeX</button>
+            <a href="https://doi.org/10.1007/s12532-026-00336-z" target="_blank" rel="noopener">
+              DOI
+            </a>
+
+            <button
+              class="bibtex-button"
+              type="button"
+              data-bibtex="@article{Wang2026ProbingDualFixing,&#10;  title={Enhancing Presolve in Mixed Integer Programming by Combining Probing and Dual Fixing},&#10;  author={Wang, Zhao-Wei and Chen, Wei-Kun and Dai, Yu-Hong},&#10;  journal={Mathematical Programming Computation},&#10;  year={2026},&#10;  doi={10.1007/s12532-026-00336-z}&#10;}"
+            >
+              BibTeX
+            </button>
           </div>
         </article>
+
 
         <article class="publication">
           <h3>Exploiting Variable Implications in Presolve for Mixed Integer Programming</h3>
-          <p class="authors">Wei-Kun Chen, Chang-Long Li, <strong>Zhao-Wei Wang</strong>, Yu-Hong Dai, Zi-Shuo Li, Meng Lu</p>
-          <p class="venue">arXiv:2607.04313, 2026</p>
+
+          <p class="authors">
+            Wei-Kun Chen, Chang-Long Li, <strong>Zhao-Wei Wang</strong>, Yu-Hong Dai, Zi-Shuo Li, Meng Lu
+          </p>
+
+          <p class="venue">
+            arXiv:2607.04313, 2026
+          </p>
+
           <div class="links">
-            <a href="https://arxiv.org/abs/2607.04313" target="_blank" rel="noopener">arXiv</a>
-            <a href="files/variable_implications_presolve.pdf" target="_blank">PDF</a>
-            <button class="bibtex-button" type="button" data-bibtex="@article{Chen2026VariableImplications,&#10;  title={Exploiting Variable Implications in Presolve for Mixed Integer Programming},&#10;  author={Chen, Wei-Kun and Li, Chang-Long and Wang, Zhao-Wei and Dai, Yu-Hong and Li, Zi-Shuo and Lu, Meng},&#10;  journal={arXiv preprint arXiv:2607.04313},&#10;  year={2026}&#10;}">BibTeX</button>
+            <a href="https://arxiv.org/abs/2607.04313" target="_blank" rel="noopener">
+              arXiv
+            </a>
+
+            <a href="files/variable_implications_presolve.pdf" target="_blank">
+              PDF
+            </a>
+
+            <button
+              class="bibtex-button"
+              type="button"
+              data-bibtex="@article{Chen2026VariableImplications,&#10;  title={Exploiting Variable Implications in Presolve for Mixed Integer Programming},&#10;  author={Chen, Wei-Kun and Li, Chang-Long and Wang, Zhao-Wei and Dai, Yu-Hong and Li, Zi-Shuo and Lu, Meng},&#10;  journal={arXiv preprint arXiv:2607.04313},&#10;  year={2026}&#10;}"
+            >
+              BibTeX
+            </button>
           </div>
         </article>
+
 
         <article class="publication">
           <h3>A Euclidean Distance Matrix Model for Convex Clustering</h3>
-          <p class="authors"><strong>Zhao-Wei Wang</strong>, Xiaowen Liu, Qingna Li</p>
-          <p class="venue"><em>Journal of Optimization Theory and Applications</em>, 205:1, 2025</p>
+
+          <p class="authors">
+            <strong>Zhao-Wei Wang</strong>, Xiaowen Liu, Qingna Li
+          </p>
+
+          <p class="venue">
+            <em>Journal of Optimization Theory and Applications</em>, 205:1, 2025
+          </p>
+
           <div class="links">
-            <a href="https://doi.org/10.1007/s10957-025-02616-5" target="_blank" rel="noopener">DOI</a>
-            <a href="files/EDM_convex_clustering.pdf" target="_blank">PDF</a>
-            <button class="bibtex-button" type="button" data-bibtex="@article{Wang2025EDMClustering,&#10;  title={A Euclidean Distance Matrix Model for Convex Clustering},&#10;  author={Wang, Zhao-Wei and Liu, Xiaowen and Li, Qingna},&#10;  journal={Journal of Optimization Theory and Applications},&#10;  volume={205},&#10;  pages={1},&#10;  year={2025},&#10;  doi={10.1007/s10957-025-02616-5}&#10;}">BibTeX</button>
+            <a href="https://doi.org/10.1007/s10957-025-02616-5" target="_blank" rel="noopener">
+              DOI
+            </a>
+
+            <!-- <a href="files/EDM_convex_clustering.pdf" target="_blank">PDF</a> -->
+
+            <button
+              class="bibtex-button"
+              type="button"
+              data-bibtex="@article{Wang2025EDMClustering,&#10;  title={A Euclidean Distance Matrix Model for Convex Clustering},&#10;  author={Wang, Zhao-Wei and Liu, Xiaowen and Li, Qingna},&#10;  journal={Journal of Optimization Theory and Applications},&#10;  volume={205},&#10;  pages={1},&#10;  year={2025},&#10;  doi={10.1007/s10957-025-02616-5}&#10;}"
+            >
+              BibTeX
+            </button>
           </div>
         </article>
 
+
         <article class="publication">
           <h3>IPRSOCP: A Primal-Dual Interior-Point Relaxation Algorithm for Second-Order Cone Programming</h3>
-          <p class="authors">Rui-Jin Zhang, <strong>Zhao-Wei Wang</strong>, Xin-Wei Liu, Yu-Hong Dai</p>
-          <p class="venue"><em>Journal of the Operations Research Society of China</em>, 14:1–31, 2026</p>
+
+          <p class="authors">
+            Rui-Jin Zhang, <strong>Zhao-Wei Wang</strong>, Xin-Wei Liu, Yu-Hong Dai
+          </p>
+
+          <p class="venue">
+            <em>Journal of the Operations Research Society of China</em>, 14:1–31, 2024
+          </p>
+
           <div class="links">
-            <a href="https://doi.org/10.1007/s40305-024-00538-z" target="_blank" rel="noopener">DOI</a>
-            <a href="files/IPRSOCP.pdf" target="_blank">PDF</a>
-            <button class="bibtex-button" type="button" data-bibtex="@article{Zhang2026IPRSOCP,&#10;  title={IPRSOCP: A Primal-Dual Interior-Point Relaxation Algorithm for Second-Order Cone Programming},&#10;  author={Zhang, Rui-Jin and Wang, Zhao-Wei and Liu, Xin-Wei and Dai, Yu-Hong},&#10;  journal={Journal of the Operations Research Society of China},&#10;  volume={14},&#10;  pages={1--31},&#10;  year={2026},&#10;  doi={10.1007/s40305-024-00538-z}&#10;}">BibTeX</button>
+            <a href="https://doi.org/10.1007/s40305-024-00538-z" target="_blank" rel="noopener">
+              DOI
+            </a>
+
+            <!-- <a href="files/IPRSOCP.pdf" target="_blank">PDF</a> -->
+
+            <button
+              class="bibtex-button"
+              type="button"
+              data-bibtex="@article{Zhang2024IPRSOCP,&#10;  title={IPRSOCP: A Primal-Dual Interior-Point Relaxation Algorithm for Second-Order Cone Programming},&#10;  author={Zhang, Rui-Jin and Wang, Zhao-Wei and Liu, Xin-Wei and Dai, Yu-Hong},&#10;  journal={Journal of the Operations Research Society of China},&#10;  volume={14},&#10;  pages={1--31},&#10;  year={2024},&#10;  doi={10.1007/s40305-024-00538-z}&#10;}"
+            >
+              BibTeX
+            </button>
           </div>
         </article>
+
       </section>
+
 
       <section id="presentations" class="section" aria-labelledby="presentations-title">
         <div class="section-heading">
@@ -142,39 +543,147 @@
         </div>
 
         <article class="presentation">
-          <div class="year">2026</div>
+          <div class="year">2026-04</div>
+
           <div>
-            <p><strong>04-17:</strong> Talk at the <a href="https://conf.orsc.org.cn/conferences/detail?id=48" target="_blank" rel="noopener">3rd ORSC Conference on Algorithms, Software and Applications (ASA2026)</a>, Fuzhou, China.</p>
-            <p class="presentation-title">“Enhancing Presolve in Mixed Integer Programming by Combining Probing and Dual Fixing”</p>
-            <div class="links"><a href="files/ASA2026_slides.pdf" target="_blank">Slides</a></div>
+            <p>
+              Talk at the
+              <a href="https://conf.orsc.org.cn/conferences/detail?id=48" target="_blank" rel="noopener">
+                3rd ORSC Conference on Algorithms, Software and Applications (ASA2026)
+              </a>,
+              Fuzhou, China.
+            </p>
+
+            <p class="presentation-title">
+              “Enhancing Presolve in Mixed Integer Programming by Combining Probing and Dual Fixing”
+            </p>
+
+            <div class="links">
+              <a href="files/ASA2026_slides.pdf" target="_blank">
+                Slides
+              </a>
+            </div>
           </div>
         </article>
+
 
         <article class="presentation">
-          <div class="year">2025</div>
+          <div class="year">2025-05</div>
+
           <div>
-            <p>Poster at the 15th National Academic Conference on Mathematical Optimization of the Mathematical Programming Branch of the Operations Research Society of China (MOS 2025), Shanghai, China.</p>
-            <p class="presentation-title">“Enhancing Linear Constraint Base Presolve by Exploiting Clique Structures”</p>
-            <div class="links"><a href="files/MOS2025_poster.pdf" target="_blank">Poster</a></div>
+            <p>
+              Poster at the 15th National Academic Conference on Mathematical Optimization of the Mathematical Programming Branch of the Operations Research Society of China (MOS 2025), Shanghai, China.
+            </p>
+
+            <p class="presentation-title">
+              “Enhancing Linear Constraint Based Presolve by Exploiting Clique Structures”
+            </p>
+
+            <div class="links">
+              <a href="files/MOS2025_poster.pdf" target="_blank">
+                Poster
+              </a>
+            </div>
           </div>
         </article>
+
       </section>
 
-      <footer>Last updated: August 2026</footer>
     </div>
   </main>
 
+
   <dialog id="bibtex-dialog" class="bibtex-dialog">
     <form method="dialog">
+
       <div class="dialog-head">
         <strong>BibTeX</strong>
         <button class="close-button" aria-label="Close">×</button>
       </div>
+
       <pre id="bibtex-content"></pre>
-      <button id="copy-bibtex" class="copy-button" type="button">Copy</button>
+
+      <button id="copy-bibtex" class="copy-button" type="button">
+        Copy
+      </button>
+
     </form>
   </dialog>
 
+
+  <script>
+    (() => {
+      const actions = [...document.querySelectorAll('.contact-action')];
+
+      function closeAll(except = null) {
+        actions.forEach(action => {
+          if (action === except) return;
+
+          action.classList.remove('is-open');
+
+          const button = action.querySelector('.contact-toggle');
+
+          if (button) {
+            button.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+
+      actions.forEach(action => {
+        const button = action.querySelector('.contact-toggle');
+
+        if (!button) return;
+
+        button.addEventListener('click', (event) => {
+          event.stopPropagation();
+
+          const willOpen = !action.classList.contains('is-open');
+
+          closeAll(action);
+
+          action.classList.toggle('is-open', willOpen);
+
+          button.setAttribute(
+            'aria-expanded',
+            String(willOpen)
+          );
+        });
+
+        const popover = action.querySelector('.contact-popover');
+
+        if (popover) {
+          popover.addEventListener(
+            'click',
+            event => event.stopPropagation()
+          );
+        }
+      });
+
+      document.addEventListener(
+        'click',
+        () => closeAll()
+      );
+
+      document.addEventListener(
+        'keydown',
+        (event) => {
+          if (event.key === 'Escape') {
+            closeAll();
+          }
+        }
+      );
+    })();
+  </script>
+
   <script src="assets/main.js"></script>
+
+  <script
+    type="module"
+    src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496"
+    integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ=="
+    data-cf-beacon='{"version":"2024.11.0","token":"7939e04a4baf43c8b86a560f74aac60e"}'
+    crossorigin="anonymous"
+  ></script>
+
 </body>
 </html>
