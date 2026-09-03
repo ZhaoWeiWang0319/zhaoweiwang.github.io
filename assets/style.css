@@ -41,6 +41,8 @@ a:hover { color: var(--link-dark); text-decoration: underline; }
 .brand { color: var(--text); font-weight: 650; letter-spacing: .1px; }
 .nav { margin-left: auto; display: flex; gap: 26px; }
 .nav a { color: #4b5560; font-size: 14px; }
+.view-counter { display: inline-flex; align-items: center; }
+.view-counter img { display: block; height: 20px; }
 .menu-button {
   display: none;
   margin-left: auto;
