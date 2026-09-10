@@ -16,21 +16,21 @@
 
     .profile-contact-bar {
       display: grid;
-      grid-template-columns: repeat(3, 30px);
-      column-gap: 34px;
+      grid-template-columns: repeat(4, 30px);
+      column-gap: 28px;
 
       width: max-content;
 
       margin-top: 22px;
       margin-bottom: 8px;
-      margin-left: auto;
+      margin-left: 12pt;
       margin-right: auto;
 
       padding: 0;
 
       position: relative;
       z-index: 20;
-      transform: translateX(-25px);
+      transform: none;
     }
 
     .contact-action {
@@ -189,26 +189,6 @@
 </head>
 
 <body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <a class="brand" href="#home">Zhao-Wei Wang (王兆维)</a>
-      <button class="menu-button" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
-      <nav id="main-nav" class="nav" aria-label="Primary navigation">
-        <a href="#home">Home</a>
-        <a href="#publications">Publications</a>
-        <a href="#presentations">Presentations</a>
-      </nav>
-
-      <span class="view-counter" title="Total visits">
-        <img
-          src="https://visitor-badge.laobi.icu/badge?page_id=zhaoweiwang.github.io&left_text=Profile%20views"
-          alt="Total visits"
-          loading="lazy"
-        >
-      </span>
-    </div>
-  </header>
-
   <main id="home" class="layout">
     <aside class="profile-card" aria-label="Profile">
       <div class="avatar">
@@ -313,6 +293,28 @@
               Open GitHub
             </a>
           </div>
+        </div>
+
+        <!-- Google Scholar -->
+        <div class="contact-action">
+          <a 
+            class="contact-icon"
+            href="https://scholar.google.com/citations?user=CcEsZwgAAAAJ&hl=en"
+            target="_blank"
+            rel="noopener"
+            aria-label="Google Scholar">
+
+            <svg viewBox="0 0 24 24" fill="none" 
+                  stroke-width="1.8" 
+                  stroke-linecap="round" 
+                  stroke-linejoin="round"
+                  aria-hidden="true">
+
+              <path d="M12 3L2 8l10 5 10-5-10-5z"></path>
+              <path d="M6 10.5V15c0 2 3 4 6 4s6-2 6-4v-4.5"></path>
+            </svg>
+
+          </a>
         </div>
 
       </div>
